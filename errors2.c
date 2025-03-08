@@ -31,3 +31,37 @@ int     is_rectangular(t_map map)
     }
     return (1);
 }
+
+int		is_in(char c)
+{
+	char	*set;
+
+	set = "01CEP\0";
+	while (*set)
+	{
+		if (*set == c)
+			return (1);
+		set++;
+	}
+	return (0);
+}
+
+int		has_only_valid_characters(t_map map)
+{
+	int		i;
+	int		j;
+
+	i = 0;
+	while (i < map.height)
+	{
+		j = 0;
+		while (j < map.width)
+		{
+			if (!(is_in(map.matrix[i][j])))
+				return (print_error_and_return("Error\nThe map contains invalid characters.", 0));
+			j++;
+		}
+		i++;
+	}
+	return (1);
+}

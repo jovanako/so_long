@@ -67,5 +67,6 @@ int     dup_or_no_exit(t_map map);
 int     is_rectangular(t_map map);
 int     collectible_exists(t_map map);
 int     print_error_and_return(char *error_message, int n);
+int		has_only_valid_characters(t_map map);
 
 #endif

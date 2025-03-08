@@ -1,0 +1,119 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   helpers.c                                          :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: jkovacev <jkovacev@student.42berlin.d      +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2025/03/04 13:52:38 by jkovacev          #+#    #+#             */
+/*   Updated: 2025/03/04 13:52:51 by jkovacev         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "so_long.h"
+
+char	*this_tile(char c)
+{
+	if (c == '0')
+		return ("sprites/grass.xpm");
+	else if (c == '1')
+		return ("sprites/tree.xpm");
+	else if (c == 'C')
+		return ("sprites/mushrooms.xpm");
+	else if (c == 'E')
+		return ("sprites/exit.xpm");
+	else if (c == 'P')
+		return ("sprites/wizard.xpm");
+	return (NULL);
+}
+
+int	find_new_line(char *s)
+{
+	int		i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '\n')
+		{
+			return (i);
+		}
+		i++;
+	}
+	return (-1);
+}
+
+int	ft_strlen(char *str)
+{
+	int		len;
+
+	len = 0;
+	while (str[len])
+	{
+		len++;
+	}
+	return (len);
+}
+
+void	copy(char *dst, char *src, int n)
+{
+	int		i;
+
+	i = 0;
+	while (i < n)
+	{
+		dst[i] = src[i];
+		i++;
+	}
+}
+
+char	*ft_substr(char **s, int start, int len)
+{
+	char	*result;
+
+	result = malloc((len + 1) * sizeof(char));
+	if (result == NULL)
+	{
+		free(*s);
+		*s = NULL;
+		return (NULL);
+	}
+	copy(result, *s + start, len);
+	result[len] = '\0';
+	return (result);
+}
+
+void	append(char **line_buf, char *read_buf, int bytes_read)
+{
+	char	*temp;
+	int		line_len;
+
+	temp = *line_buf;
+	line_len = ft_strlen(*line_buf);
+	*line_buf = malloc((line_len + bytes_read + 1) * sizeof(char));
+	if (*line_buf == NULL)
+	{
+		free(temp);
+		return ;
+	}
+	(*line_buf)[line_len + bytes_read] = '\0';
+	copy(*line_buf, temp, line_len);
+	free(temp);
+	copy(*line_buf + line_len, read_buf, bytes_read);
+}
+
+int		ft_strchr(char *s, char c)
+{
+	int		i;
+
+	i = 0;
+	while (s[i] != '\n')
+	{
+		if (s[i] == (char)c)
+		{
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}

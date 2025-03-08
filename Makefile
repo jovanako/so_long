@@ -17,9 +17,11 @@ CC = cc
 CFLAGS = -g -Wall -Wextra -Werror -I/usr/local/include -O0
 
 SRCS = so_long.c \
-		helpers.c \
+		helpers1.c \
+		helpers2.c \
 		get_next_line.c \
-		# errors.c
+		errors1.c \
+		errors2.c
 
 OBJS = $(SRCS:.c=.o)
 

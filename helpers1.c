@@ -12,21 +12,6 @@
 
 #include "so_long.h"
 
-char	*this_tile(char c)
-{
-	if (c == '0')
-		return ("sprites/grass.xpm");
-	else if (c == '1')
-		return ("sprites/tree.xpm");
-	else if (c == 'C')
-		return ("sprites/mushrooms.xpm");
-	else if (c == 'E')
-		return ("sprites/exit.xpm");
-	else if (c == 'P')
-		return ("sprites/wizard.xpm");
-	return (NULL);
-}
-
 int	find_new_line(char *s)
 {
 	int		i;
@@ -100,20 +85,4 @@ void	append(char **line_buf, char *read_buf, int bytes_read)
 	copy(*line_buf, temp, line_len);
 	free(temp);
 	copy(*line_buf + line_len, read_buf, bytes_read);
-}
-
-int		ft_strchr(char *s, char c)
-{
-	int		i;
-
-	i = 0;
-	while (s[i] != '\n')
-	{
-		if (s[i] == (char)c)
-		{
-			return (1);
-		}
-		i++;
-	}
-	return (0);
 }

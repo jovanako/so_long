@@ -17,7 +17,9 @@ int     is_rectangular(t_map map)
     int     i;
     int     len;
     int     current_len;
+	char	*error;
 
+	error = "Error\nThe map is not rectangular.";
     len = ft_strlen(map.matrix[0]) - 1;
     i = 1;
     while (i < map.height)
@@ -26,7 +28,7 @@ int     is_rectangular(t_map map)
         if (map.matrix[i][current_len - 1] == '\n')
             current_len--;
         if (current_len != len)
-            return (print_error_and_return("Error\nThe map is not rectangular.", 0));
+            return (print_error_and_return(error, 0));
         i++;
     }
     return (1);
@@ -46,11 +48,13 @@ int		is_in(char c)
 	return (0);
 }
 
-int		has_only_valid_characters(t_map map)
+int		valid_characters(t_map map)
 {
 	int		i;
 	int		j;
+	char	*error;
 
+	error = "Error\nThe map contains invalid characters.";
 	i = 0;
 	while (i < map.height)
 	{
@@ -58,7 +62,7 @@ int		has_only_valid_characters(t_map map)
 		while (j < map.width)
 		{
 			if (!(is_in(map.matrix[i][j])))
-				return (print_error_and_return("Error\nThe map contains invalid characters.", 0));
+				return (print_error_and_return(error, 0));
 			j++;
 		}
 		i++;

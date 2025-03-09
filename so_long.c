@@ -90,9 +90,8 @@ int     main(int argc, char *argv[])
     if (!map.matrix)
         return (1);
     map.matrix = create_matrix(map, argv[1]);
-    if (!check_walls(map) || dup_or_no_player(map) || dup_or_no_exit(map)
-        || !is_rectangular(map) || !collectible_exists(map)
-        || !has_only_valid_characters(map))
+    if ( !check_walls(map) || dup_or_no_player(map) || !valid_characters(map)
+        || !is_rectangular(map) || dup_or_no_exit(map) || !collectible(map))
         return (1);
     mlx.connection = mlx_init();
     if (!mlx.connection)

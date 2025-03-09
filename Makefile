@@ -19,6 +19,7 @@ CFLAGS = -g -Wall -Wextra -Werror -I/usr/local/include -O0
 SRCS = so_long.c \
 		helpers1.c \
 		helpers2.c \
+		helpers3.c \
 		get_next_line.c \
 		errors1.c \
 		errors2.c

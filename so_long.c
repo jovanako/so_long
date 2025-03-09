@@ -80,6 +80,9 @@ int     main(int argc, char *argv[])
         free(mlx.con);
         return (1);
     }
+    mlx_hook(mlx.win, 3, 1L<<1, key_press, &mlx);
+    mlx_hook(mlx.win, 17, 1L<<3, button_release, &mlx);
+
     mlx_loop(mlx.con);
 
    // img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);

@@ -30,6 +30,7 @@ typedef struct  s_mlx
     void    *win;
     int     w;
     int     h;
+    char    *title;
 }               t_mlx;
 
 typedef struct  s_map
@@ -68,5 +69,6 @@ int     is_rectangular(t_map map);
 int     collectible(t_map map);
 int     print_error_and_return(char *error_message, int n);
 int		valid_characters(t_map map);
+void	*create_and_fill_window(t_mlx mlx, t_map map, t_img img);
 
 #endif

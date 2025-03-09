@@ -26,16 +26,16 @@
 
 typedef struct  s_mlx
 {
-    void    *connection;
-    void    *window;
-    int     width;
-    int     height;
+    void    *con;
+    void    *win;
+    int     w;
+    int     h;
 }               t_mlx;
 
 typedef struct  s_map
 {
-    int     width;
-    int     height;
+    int     w;
+    int     h;
     int     x;
     int     y;
     char    **matrix;
@@ -48,8 +48,8 @@ typedef struct  s_img
     char    *addr;
     int     bits_per_pixel;
     int     line_length;
-    int     width;
-    int     height;
+    int     w;
+    int     h;
     int     endian;
 }               t_img;
 

@@ -21,17 +21,17 @@ int    check_walls(t_map map)
     error = "Error\nThe map is not enclosed by walls.";
     i = 0;
     j = 0;
-    while (j < map.width)
+    while (j < map.w)
     {
-        if ((map.matrix[i][j] != '1') || (map.matrix[i + (map.height - 1)][j] != '1'))
+        if ((map.matrix[i][j] != '1') || (map.matrix[i + (map.h - 1)][j] != '1'))
             return (print_error_and_return(error, 0));
         j++;
     }
     i++;
     j = 0;
-    while (i < (map.height - 1))
+    while (i < (map.h - 1))
     {
-        if ((map.matrix[i][j] != '1') || (map.matrix[i][j + (map.width - 1)] != '1'))
+        if ((map.matrix[i][j] != '1') || (map.matrix[i][j + (map.w - 1)] != '1'))
             return (print_error_and_return(error, 0));
         i++;
     }
@@ -45,9 +45,9 @@ static int     check_duplicates(t_map map, char c)
 
     count = 0;
     i = 0;
-    while (i < map.height)
+    while (i < map.h)
     {
-        count += find_c(map.matrix[i], c, map.width);
+        count += find_c(map.matrix[i], c, map.w);
         i++;
     }
     return (count);
@@ -89,10 +89,10 @@ int     collectible(t_map map)
     
     error = "Error\nThe map has no collectibles.";
     i = 0;
-    while (i < map.height)
+    while (i < map.h)
     {
         j = 0;
-        while (j < map.width)
+        while (j < map.w)
         {
             if (map.matrix[i][j] == 'C')
                 return (1);

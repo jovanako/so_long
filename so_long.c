@@ -21,7 +21,7 @@ static t_map   map_size(char *map_name)
 
     fd = open(map_name, O_RDONLY);
     line = get_next_line(fd);
-    map.width = ft_strlen(line) - 1;
+    map.w = ft_strlen(line) - 1;
     height = 1;
     while (line)
     {
@@ -29,8 +29,8 @@ static t_map   map_size(char *map_name)
         if (line)
             height++;
     }
-    map.height = height;
-    map.matrix = malloc(map.height * sizeof(char *));
+    map.h = height;
+    map.matrix = malloc(map.h * sizeof(char *));
     close(fd);
     free(line);
     return (map);
@@ -63,18 +63,18 @@ static void	fill_window_with_tiles(t_map map, t_mlx mlx, t_img img)
 
 	map.y = 0;
 	i = 0;
-	while (map.y < mlx.height)
+	while (map.y < mlx.h)
 	{
 		map.x = 0;
 		j = 0;
-		while (j < map.width)
+		while (j < map.w)
 		{
-			img.img = mlx_xpm_file_to_image(mlx.connection, this_tile(map.matrix[i][j]), &img.width, &img.height);
-            mlx_put_image_to_window(mlx.connection, mlx.window, img.img, map.x, map.y);
-            map.x += img.width;
+			img.img = mlx_xpm_file_to_image(mlx.con, this_tile(map.matrix[i][j]), &img.w, &img.h);
+            mlx_put_image_to_window(mlx.con, mlx.win, img.img, map.x, map.y);
+            map.x += img.w;
             j++;
 		}
-		map.y += img.height;
+		map.y += img.h;
 		i++;
 	}
 }
@@ -82,7 +82,7 @@ static void	fill_window_with_tiles(t_map map, t_mlx mlx, t_img img)
 int     main(int argc, char *argv[])
 {
     t_mlx   mlx;
-    t_img   img = { .width = TILE_WIDTH, .height = TILE_HEIGHT };
+    t_img   img = { .w = TILE_WIDTH, .h = TILE_HEIGHT };
     t_map   map;
     
 	if (argc)
@@ -93,28 +93,28 @@ int     main(int argc, char *argv[])
     if ( !check_walls(map) || dup_or_no_player(map) || !valid_characters(map)
         || !is_rectangular(map) || dup_or_no_exit(map) || !collectible(map))
         return (1);
-    mlx.connection = mlx_init();
-    if (!mlx.connection)
+    mlx.con = mlx_init();
+    if (!mlx.con)
         return (1);
-    mlx.width = TILE_WIDTH * map.width;
-    mlx.height = TILE_HEIGHT * map.height;
-    mlx.window = mlx_new_window(mlx.connection, mlx.width, mlx.height, "Collect the mushrooms, Miraculix!");
-    if (!mlx.window)
+    mlx.w = TILE_WIDTH * map.w;
+    mlx.h = TILE_HEIGHT * map.h;
+    mlx.win = mlx_new_window(mlx.con, mlx.w, mlx.h, "Collect the mushrooms, Miraculix!");
+    if (!mlx.win)
     {
-        mlx_destroy_display(mlx.connection);
-        free(mlx.connection);
+        mlx_destroy_display(mlx.con);
+        free(mlx.con);
         return (1);
     }
     fill_window_with_tiles(map, mlx, img);
-    mlx_loop(mlx.connection);
+    mlx_loop(mlx.con);
 
    // img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
-    // mlx_destroy_display(data.connection);
-    // mlx_destroy_window(data.connection, data.window);
-    // mlx_destroy_image(data.connection, data.img.img);
-    // free(data.connection);
-    // free(data.window);
-    // free(data.img.img);
+    // mlx_destroy_display(mlx.con);
+    // mlx_destroy_window(mlx.con, mlx.win);
+    // mlx_destroy_image(mlx.con, img.img);
+    // free(mlx.con);
+    // free(mlx.win);
+    // free(img.img);
     return (0);
 }

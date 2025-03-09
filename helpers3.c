@@ -17,6 +17,10 @@ int		key_press(int keycode, t_mlx *mlx)
 	printf("Key pressed: %d\n", keycode);
 	if (keycode == 65307)
 		mlx_destroy_window(mlx->con, mlx->win);
+	if (keycode == 65363)
+	{
+
+	}
 	return (0);
 }
 

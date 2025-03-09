@@ -61,7 +61,7 @@ int	    find_new_line(char *s);
 void	append(char **line_buf, char *read_buf, int bytes_read);
 char	*ft_substr(char **s, int start, int len);
 void	copy(char *dst, char *src, int n);
-int		find_c(char *s, char c, int len);
+int		count_c(char *s, char c, int len);
 int     check_walls(t_map map);
 int     dup_or_no_player(t_map map);
 int     dup_or_no_exit(t_map map);

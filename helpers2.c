@@ -27,7 +27,7 @@ char	*this_tile(char c)
 	return (NULL);
 }
 
-int		find_c(char *s, char c, int len)
+int		count_c(char *s, char c, int len)
 {
 	int		i;
 	int		count;

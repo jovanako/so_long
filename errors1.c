@@ -47,7 +47,7 @@ static int     check_duplicates(t_map map, char c)
     i = 0;
     while (i < map.h)
     {
-        count += find_c(map.matrix[i], c, map.w);
+        count += count_c(map.matrix[i], c, map.w);
         i++;
     }
     return (count);

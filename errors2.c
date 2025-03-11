@@ -1,16 +1,48 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors2.c                                           :+:      :+:    :+:  */
+/*   errors2.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/07 17:07:04 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/07 17:07:07 by jkovacev         ###   ########.fr       */
+/*   Created: 2025/03/11 20:10:11 by jkovacev          #+#    #+#             */
+/*   Updated: 2025/03/11 20:12:31 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int  print_error_and_return(char *error_message, int n)
+{
+    perror(error_message);
+    return (n);
+}
+
+int    check_walls(t_map map)
+{
+    int     i;
+    int     j;
+    char    *error;        
+
+    error = "Error\nThe map is not enclosed by walls.";
+    i = 0;
+    j = 0;
+    while (j < map.w)
+    {
+        if ((map.matrix[i][j] != '1') || (map.matrix[i + (map.h - 1)][j] != '1'))
+            return (print_error_and_return(error, 0));
+        j++;
+    }
+    i++;
+    j = 0;
+    while (i < (map.h - 1))
+    {
+        if ((map.matrix[i][j] != '1') || (map.matrix[i][j + (map.w - 1)] != '1'))
+            return (print_error_and_return(error, 0));
+        i++;
+    }
+    return (1);
+}
 
 int     is_rectangular(t_map map)
 {

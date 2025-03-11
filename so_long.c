@@ -3,78 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   so_long.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/04 13:54:11 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/04 13:54:14 by jkovacev         ###   ########.fr       */
+/*   Created: 2025/03/11 20:09:18 by jkovacev          #+#    #+#             */
+/*   Updated: 2025/03/11 22:33:32 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-static t_map   map_size(char *map_name)
-{
-    int     fd;
-    t_map   map;
-    char    *line;
-    int     height;
-
-    fd = open(map_name, O_RDONLY);
-    line = get_next_line(fd);
-    map.w = ft_strlen(line) - 1;
-    height = 1;
-    while (line)
-    {
-        line = get_next_line(fd);
-        if (line)
-            height++;
-    }
-    map.h = height;
-    map.matrix = malloc(map.h * sizeof(char *));
-    close(fd);
-    free(line);
-    return (map);
-}
-
-static char **create_matrix(t_map map, char *map_name)
-{
-    int     fd;
-    int     i;
-    char    *line;
-
-    fd = open(map_name, O_RDONLY);
-    line = get_next_line(fd);
-
-    i = 0;
-    while(line)
-    {
-        map.matrix[i] = line;
-        line = get_next_line(fd);
-        i++;
-    }
-    close(fd);
-    return (map.matrix);
-}
-
-static void	fill_window_with_tiles(t_map map, t_mlx mlx, t_img img)
+void	fill_window_with_tiles(t_map *map, t_mlx *mlx, t_img *img)
 {
 	int		i;
 	int		j;
-
-	map.y = 0;
+    
+	map->x = 0;
 	i = 0;
-	while (map.y < mlx.h)
+	while (map->y < mlx->h)
 	{
-		map.x = 0;
+		map->x = 0;
 		j = 0;
-		while (j < map.w)
+		while (j < map->w)
 		{
-			img.img = mlx_xpm_file_to_image(mlx.con, this_tile(map.matrix[i][j]), &img.w, &img.h);
-            mlx_put_image_to_window(mlx.con, mlx.win, img.img, map.x, map.y);
-            map.x += img.w;
+            get_image(map->matrix[i][j], img, &(map->tiles));
+            mlx_put_image_to_window(mlx->con, mlx->win, img->img, map->x, map->y);
+            map->x += img->w;
             j++;
 		}
-		map.y += img.h;
+		map->y += img->h;
 		i++;
 	}
 }
@@ -83,19 +39,20 @@ int     main(int argc, char *argv[])
 {
     t_mlx   mlx = { .title = "Collect the mushrooms, Miraculix!" };
     t_img   img = { .w = TILE_WIDTH, .h = TILE_HEIGHT };
-    t_map   map;
+    t_map   map = { .x = 0, .y = 0 };
+    t_data  data;
     
 	if (argc)
-		map = map_size(argv[1]);
+		map_size(argv[1], &map);
     if (!map.matrix)
         return (print_error_and_return("Error\nFailed malloc for map.matrix.", 1));
-    map.matrix = create_matrix(map, argv[1]);
+    create_matrix(&map, argv[1]);
     if ( !check_walls(map) || dup_or_no_player(map) || !valid_characters(map)
         || !is_rectangular(map) || dup_or_no_exit(map) || !collectible(map))
         return (1);
     mlx.con = mlx_init();
     if (!mlx.con)
-        return (1);
+        return (print_error_and_return("Error\nFailed malloc for mlx.con.", 1));
     mlx.w = TILE_WIDTH * map.w;
     mlx.h = TILE_HEIGHT * map.h;
 	mlx.win = mlx_new_window(mlx.con, mlx.w, mlx.h, mlx.title);
@@ -105,18 +62,13 @@ int     main(int argc, char *argv[])
         free(mlx.con);
         return (1);
     }
-    fill_window_with_tiles(map, mlx, img);
-    mlx_hook(mlx.win, 3, 1L<<1, key_press, &mlx);
+    load_tiles(&map, &mlx, &img);
+    fill_window_with_tiles(&map, &mlx, &img);
+    data.mlx = mlx;
+    data.map = map;
+    data.img = img;
+    mlx_key_hook(mlx.win, key_press, &data);
     mlx_hook(mlx.win, 17, 1L<<3, button_release, &mlx);
     mlx_loop(mlx.con);
-
-   // img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-
-    // mlx_destroy_display(mlx.con);
-    // mlx_destroy_window(mlx.con, mlx.win);
-    // mlx_destroy_image(mlx.con, img.img);
-    // free(mlx.con);
-    // free(mlx.win);
-    // free(img.img);
     return (0);
 }

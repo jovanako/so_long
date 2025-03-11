@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jkovacev <jkovacev@student.42berlin.d      +#+  +:+       +#+         #
+#    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/03/07 15:28:39 by jkovacev          #+#    #+#              #
-#    Updated: 2025/03/07 15:28:42 by jkovacev         ###   ########.fr        #
+#    Created: 2025/03/11 20:09:31 by jkovacev          #+#    #+#              #
+#    Updated: 2025/03/11 20:14:23 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -17,9 +17,10 @@ CC = cc
 CFLAGS = -g -Wall -Wextra -Werror -I/usr/local/include -O0
 
 SRCS = so_long.c \
-		helpers1.c \
-		helpers2.c \
-		helpers3.c \
+		gnl_utils.c \
+		helpers.c \
+		event_handlers.c \
+		map.c \
 		get_next_line.c \
 		errors1.c \
 		errors2.c

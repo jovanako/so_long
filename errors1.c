@@ -1,41 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors.c                                           :+:      :+:    :+:   */
+/*   errors1.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jkovacev <jkovacev@student.42berlin.d      +#+  +:+       +#+        */
+/*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/07 17:07:04 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/07 17:07:07 by jkovacev         ###   ########.fr       */
+/*   Created: 2025/03/11 20:13:01 by jkovacev          #+#    #+#             */
+/*   Updated: 2025/03/11 20:13:02 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-int    check_walls(t_map map)
+static int		count_c(char *s, char c, int len)
 {
-    int     i;
-    int     j;
-    char    *error;        
+	int		i;
+	int		count;
 
-    error = "Error\nThe map is not enclosed by walls.";
-    i = 0;
-    j = 0;
-    while (j < map.w)
-    {
-        if ((map.matrix[i][j] != '1') || (map.matrix[i + (map.h - 1)][j] != '1'))
-            return (print_error_and_return(error, 0));
-        j++;
-    }
-    i++;
-    j = 0;
-    while (i < (map.h - 1))
-    {
-        if ((map.matrix[i][j] != '1') || (map.matrix[i][j + (map.w - 1)] != '1'))
-            return (print_error_and_return(error, 0));
-        i++;
-    }
-    return (1);
+	i = 0;
+	count = 0;
+	while (i < len)
+	{
+		if (s[i] == c)
+			count++;
+		i++;
+	}
+	return (count);
 }
 
 static int     check_duplicates(t_map map, char c)

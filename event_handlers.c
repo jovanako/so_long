@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:14:41 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/12 09:34:17 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:37:04 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,10 +27,7 @@ int		key_press(int keycode, t_data *data)
 		return (0);
 	}
 	else if (keycode == 65363 || keycode == 100)
-	{
 		move_right(data);
-		
-	}
 	else if (keycode == 65361 || keycode == 97)
 		move_left(data);
 	else if (keycode == 65362 || keycode == 119)

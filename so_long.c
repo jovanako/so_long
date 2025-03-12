@@ -6,30 +6,11 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:09:18 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/12 09:33:04 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:36:12 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-void	fill_window_with_tiles(t_map *map, t_mlx *mlx, t_img *img)
-{
-	int		i;
-	int		j;
-    
-    i = 0;
-	while ((i * TILE_HEIGHT) < mlx->h)
-	{
-		j = 0;
-		while (j < map->w)
-		{
-            get_image(map->matrix[i][j], img, &(map->tiles));
-            mlx_put_image_to_window(mlx->con, mlx->win, img->img, j * TILE_WIDTH, i * TILE_HEIGHT);
-            j++;
-		}
-		i++;
-	}
-}
 
 int     main(int argc, char *argv[])
 {
@@ -41,14 +22,14 @@ int     main(int argc, char *argv[])
 	if (argc)
 		map_size(argv[1], &map);
     if (!map.matrix)
-        return (print_error_and_return("Error\nFailed malloc for map.matrix.", 1));
+        return (1);
     create_matrix(&map, argv[1]);
     if ( !check_walls(map) || dup_or_no_player(map) || !valid_characters(map)
         || !is_rectangular(map) || dup_or_no_exit(map) || !collectible(map))
         return (1);
     mlx.con = mlx_init();
     if (!mlx.con)
-        return (print_error_and_return("Error\nFailed malloc for mlx.con.", 1));
+        return (1);
     mlx.w = TILE_WIDTH * map.w;
     mlx.h = TILE_HEIGHT * map.h;
 	mlx.win = mlx_new_window(mlx.con, mlx.w, mlx.h, mlx.title);

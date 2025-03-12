@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:14:41 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/12 09:37:04 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:13:01 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int		key_press(int keycode, t_data *data)
 	{
 		end_program(data->mlx);
 		exit(0);
-		return (0);
 	}
 	else if (keycode == 65363 || keycode == 100)
 		move_right(data);
@@ -37,11 +36,17 @@ int		key_press(int keycode, t_data *data)
 	return (0);
 }
 
-int		close_window(t_mlx *mlx)
+int		close_window(t_mlx *mlx, int n)
 {
 	end_program(*mlx);
-	exit(0);
-	return (0);
+	exit(n);
+	return (n);
+}
+
+void		free_map_and_close(t_map map)
+{
+	free(map.matrix);
+	exit(1);
 }
 
 

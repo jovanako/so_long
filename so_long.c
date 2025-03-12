@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:09:18 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/12 09:36:12 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:15:36 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,22 +23,14 @@ int     main(int argc, char *argv[])
 		map_size(argv[1], &map);
     if (!map.matrix)
         return (1);
-    create_matrix(&map, argv[1]);
-    if ( !check_walls(map) || dup_or_no_player(map) || !valid_characters(map)
-        || !is_rectangular(map) || dup_or_no_exit(map) || !collectible(map))
+    if (!create_matrix(&map, argv[1]))
         return (1);
     mlx.con = mlx_init();
     if (!mlx.con)
-        return (1);
-    mlx.w = TILE_WIDTH * map.w;
-    mlx.h = TILE_HEIGHT * map.h;
-	mlx.win = mlx_new_window(mlx.con, mlx.w, mlx.h, mlx.title);
+		free_map_and_close(map);
+	mlx.win = mlx_new_window(mlx.con, TILE_WIDTH * map.w, TILE_HEIGHT * map.h, mlx.title);
     if (!mlx.win)
-    {
-        mlx_destroy_display(mlx.con);
-        free(mlx.con);
-        return (1);
-    }
+        close_window(&mlx, 1);
     load_tiles(&map, &mlx, &img);
     fill_window_with_tiles(&map, &mlx, &img);
     data.mlx = mlx;
@@ -49,3 +41,4 @@ int     main(int argc, char *argv[])
     mlx_loop(mlx.con);
     return (0);
 }
+

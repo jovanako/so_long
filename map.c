@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:09:25 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/11 20:43:13 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/12 10:30:16 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void   map_size(char *map_name, t_map *map)
     free(line);
 }
 
-void create_matrix(t_map *map, char *map_name)
+int create_matrix(t_map *map, char *map_name)
 {
     int     fd;
     int     i;
@@ -51,6 +51,11 @@ void create_matrix(t_map *map, char *map_name)
         i++;
     }
     close(fd);
+    if ( !check_walls(*map) || dup_or_no_player(*map) || !valid_characters(*map)
+    || !is_rectangular(*map) || dup_or_no_exit(*map) || !collectible(*map))
+        return (0);
+    else
+        return (1);
 }
 
 void	load_tiles(t_map *map, t_mlx *mlx, t_img *img)

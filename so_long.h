@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:14:45 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/12 09:33:22 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/12 11:14:05 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ typedef struct  s_data
 }               t_data;
 
 void    map_size(char *map_name, t_map *map);
-void    create_matrix(t_map *map, char *map_name);
+int		create_matrix(t_map *map, char *map_name);
 void	load_tiles(t_map *map, t_mlx *mlx, t_img *img);
 void	get_image(char c, t_img *img, t_tiles *tiles);
 void	fill_window_with_tiles(t_map *map, t_mlx *mlx, t_img *img);
@@ -88,11 +88,12 @@ int     collectible(t_map map);
 int     print_error_and_return(char *error_message, int n);
 int		valid_characters(t_map map);
 int		key_press(int keycode, t_data *data);
-int		close_window(t_mlx *mlx);
+int		close_window(t_mlx *mlx, int n);
 void 	move_right(t_data *data);
 void	move_left(t_data *data);
 void	move_up(t_data *data);
 void	move_down(t_data *data);
 void	end_program(t_mlx mlx);
+void	free_map_and_close(t_map map);
 
 #endif

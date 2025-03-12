@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:14:45 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/11 22:33:13 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:33:22 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,6 @@ typedef struct  s_map
 {
     int     w;
     int     h;
-    int     x;
-    int     y;
-    int     x_player;
-    int     y_player;
     char    **matrix;
     t_tiles tiles;
 }               t_map;
@@ -92,8 +88,11 @@ int     collectible(t_map map);
 int     print_error_and_return(char *error_message, int n);
 int		valid_characters(t_map map);
 int		key_press(int keycode, t_data *data);
-int		button_release(t_mlx *mlx);
+int		close_window(t_mlx *mlx);
 void 	move_right(t_data *data);
-void	end_program(t_mlx mlx, t_img img);
+void	move_left(t_data *data);
+void	move_up(t_data *data);
+void	move_down(t_data *data);
+void	end_program(t_mlx mlx);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:09:18 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/11 22:33:32 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/12 09:33:04 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,20 +17,16 @@ void	fill_window_with_tiles(t_map *map, t_mlx *mlx, t_img *img)
 	int		i;
 	int		j;
     
-	map->x = 0;
-	i = 0;
-	while (map->y < mlx->h)
+    i = 0;
+	while ((i * TILE_HEIGHT) < mlx->h)
 	{
-		map->x = 0;
 		j = 0;
 		while (j < map->w)
 		{
             get_image(map->matrix[i][j], img, &(map->tiles));
-            mlx_put_image_to_window(mlx->con, mlx->win, img->img, map->x, map->y);
-            map->x += img->w;
+            mlx_put_image_to_window(mlx->con, mlx->win, img->img, j * TILE_WIDTH, i * TILE_HEIGHT);
             j++;
 		}
-		map->y += img->h;
 		i++;
 	}
 }
@@ -39,7 +35,7 @@ int     main(int argc, char *argv[])
 {
     t_mlx   mlx = { .title = "Collect the mushrooms, Miraculix!" };
     t_img   img = { .w = TILE_WIDTH, .h = TILE_HEIGHT };
-    t_map   map = { .x = 0, .y = 0 };
+    t_map   map;
     t_data  data;
     
 	if (argc)
@@ -68,7 +64,7 @@ int     main(int argc, char *argv[])
     data.map = map;
     data.img = img;
     mlx_key_hook(mlx.win, key_press, &data);
-    mlx_hook(mlx.win, 17, 1L<<3, button_release, &mlx);
+    mlx_hook(mlx.win, 17, 1L<<17, close_window, &mlx);
     mlx_loop(mlx.con);
     return (0);
 }

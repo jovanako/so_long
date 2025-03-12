@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 20:09:31 by jkovacev          #+#    #+#              #
-#    Updated: 2025/03/11 20:14:23 by jkovacev         ###   ########.fr        #
+#    Updated: 2025/03/12 09:02:11 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,6 +20,7 @@ SRCS = so_long.c \
 		gnl_utils.c \
 		helpers.c \
 		event_handlers.c \
+		movement_handlers.c \
 		map.c \
 		get_next_line.c \
 		errors1.c \

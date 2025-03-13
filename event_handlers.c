@@ -5,49 +5,69 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 20:14:41 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/12 11:13:01 by jkovacev         ###   ########.fr       */
+/*   Created: 2025/03/12 21:39:35 by jkovacev          #+#    #+#             */
+/*   Updated: 2025/03/13 13:35:08 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	end_program(t_mlx mlx)
+void	end_program(t_data *data)
 {
-	mlx_destroy_window(mlx.con, mlx.win);
-    free(mlx.con);
+	if (data->map->grid[0][0])
+		free_map(data->map);
+	if (data->mlx->win)
+	{
+		mlx_destroy_window(data->mlx->con, data->mlx->win);
+		free(data->mlx->con);		
+	}
+}
+
+int		end_program_and_return(t_data *data)
+{
+	end_program(data);
+	return (1);
+}
+
+static void	display_move_count(int n)
+{
+	char	*moves_str;
+
+	moves_str = ft_itoa(n);
+	
+	write (1, "Number of moves: ", 17);
+	write (1, moves_str, ft_strlen(moves_str));
+	write (1, "\n", 1);
+}
+
+void	handle_move(char field, t_data *data)
+{
+	if (field == 'C' || field == '0')
+	{
+		data->n_moves++;
+		display_move_count(data->n_moves);
+		fill_window_with_tiles(data->mlx, data->map, &(data->tiles));
+	}
+	if (field == 'C')
+		data->map->n_collectibles--;
+	if (field == 'E' && data->map->n_collectibles == 0)
+		end_program_and_return(data);
 }
 
 int		key_press(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 	{
-		end_program(data->mlx);
+		end_program(data);
 		exit(0);
 	}
 	else if (keycode == 65363 || keycode == 100)
-		move_right(data);
+		handle_move(move_right(data->map), data);
 	else if (keycode == 65361 || keycode == 97)
-		move_left(data);
+		handle_move(move_left(data->map), data);
 	else if (keycode == 65362 || keycode == 119)
-		move_up(data);
+		handle_move(move_up(data->map), data);
 	else if (keycode == 65364 || keycode == 115)
-		move_down(data);
+		handle_move(move_down(data->map), data);
 	return (0);
 }
-
-int		close_window(t_mlx *mlx, int n)
-{
-	end_program(*mlx);
-	exit(n);
-	return (n);
-}
-
-void		free_map_and_close(t_map map)
-{
-	free(map.matrix);
-	exit(1);
-}
-
-
-

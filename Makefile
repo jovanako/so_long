@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 20:09:31 by jkovacev          #+#    #+#              #
-#    Updated: 2025/03/12 09:02:11 by jkovacev         ###   ########.fr        #
+#    Updated: 2025/03/13 11:21:53 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,13 +18,14 @@ CFLAGS = -g -Wall -Wextra -Werror -I/usr/local/include -O0
 
 SRCS = so_long.c \
 		gnl_utils.c \
-		helpers.c \
-		event_handlers.c \
-		movement_handlers.c \
-		map.c \
 		get_next_line.c \
-		errors1.c \
-		errors2.c
+		map.c \
+		invalid_map_checks1.c \
+		invalid_map_checks2.c \
+		window_management.c \
+		movement_handlers.c \
+		ft_itoa.c \
+		event_handlers.c
 
 OBJS = $(SRCS:.c=.o)
 

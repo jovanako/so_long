@@ -5,141 +5,65 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/12 09:00:47 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/12 11:23:08 by jkovacev         ###   ########.fr       */
+/*   Created: 2025/03/12 21:11:54 by jkovacev          #+#    #+#             */
+/*   Updated: 2025/03/13 13:46:24 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	fill_window_with_tiles(t_map *map, t_mlx *mlx, t_img *img)
+char	move_right(t_map *map)
 {
-	int		i;
-	int		j;
-    
-    i = 0;
-	mlx->h = TILE_HEIGHT * map->h;
-	while ((i * TILE_HEIGHT) < mlx->h)
+	char	target_tile;
+	
+	target_tile = map->grid[map->y_player][map->x_player + 1];	
+	if (target_tile != '1' && target_tile != 'E')
 	{
-		j = 0;
-		while (j < map->w)
-		{
-            get_image(map->matrix[i][j], img, &(map->tiles));
-            mlx_put_image_to_window(mlx->con, mlx->win, img->img, j * TILE_WIDTH, i * TILE_HEIGHT);
-            j++;
-		}
-		i++;
+		map->grid[map->y_player][map->x_player] = '0';
+		map->grid[map->y_player][map->x_player + 1] = 'P';
+		map->x_player++;
 	}
+	return (target_tile);
 }
 
-void		move_right(t_data *data)
+char	move_left(t_map *map)
 {
-	int		i;
-	int		j;
-	int		player_found;
-
-	i = 0;
-	player_found = 0;
-	while (i < data->map.h && !player_found)
+	char	target_tile;
+	
+	target_tile = map->grid[map->y_player][map->x_player - 1];	
+	if (target_tile != '1' && target_tile != 'E')
 	{
-		j = 0;
-		while (j < data->map.w && !player_found)
-		{
-			if (data->map.matrix[i][j] == 'P' && data->map.matrix[i][j + 1] != '1' && data->map.matrix[i][j + 1] != 'E')
-			{
-				data->map.matrix[i][j] = '0';
-				data->map.matrix[i][j + 1] = 'P';
-				player_found = 1;
-			}
-			else if (data->map.matrix[i][j] == 'P' && data->map.matrix[i][j + 1] == 'E')
-				close_window(&(data->mlx), 0);
-			j++;
-		}
-		i++;
+		map->grid[map->y_player][map->x_player] = '0';
+		map->grid[map->y_player][map->x_player - 1] = 'P';
+		map->x_player--;
 	}
-	fill_window_with_tiles(&(data->map), &(data->mlx), &(data->img));
+	return (target_tile);
 }
 
-void		move_left(t_data *data)
+char	move_up(t_map *map)
 {
-	int		i;
-	int		j;
-	int		player_found;
-
-	i = 0;
-	player_found = 0;
-	while (i < data->map.h && !player_found)
+	char	target_tile;
+	
+	target_tile = map->grid[map->y_player - 1][map->x_player];	
+	if (target_tile != '1' && target_tile != 'E')
 	{
-		j = 0;
-		while (j < data->map.w && !player_found)
-		{
-			if (data->map.matrix[i][j] == 'P' && data->map.matrix[i][j - 1] != '1' && data->map.matrix[i][j - 1] != 'E')
-			{
-				data->map.matrix[i][j] = '0';
-				data->map.matrix[i][j - 1] = 'P';
-				player_found = 1;
-			}
-			else if (data->map.matrix[i][j] == 'P' && data->map.matrix[i][j - 1] == 'E')
-				close_window(&(data->mlx), 0);
-			j++;
-		}
-		i++;
+		map->grid[map->y_player][map->x_player] = '0';
+		map->grid[map->y_player - 1][map->x_player] = 'P';
+		map->y_player--;
 	}
-	fill_window_with_tiles(&(data->map), &(data->mlx), &(data->img));
+	return (target_tile);
 }
 
-void		move_up(t_data *data)
+char	move_down(t_map *map)
 {
-	int		i;
-	int		j;
-	int		player_found;
-
-	i = 0;
-	player_found = 0;
-	while (i < data->map.h && !player_found)
+	char	target_tile;
+	
+	target_tile = map->grid[map->y_player + 1][map->x_player];	
+	if (target_tile != '1' && target_tile != 'E')
 	{
-		j = 0;
-		while (j < data->map.w && !player_found)
-		{
-			if (data->map.matrix[i][j] == 'P' && data->map.matrix[i - 1][j] != '1' && data->map.matrix[i - 1][j] != 'E')
-			{
-				data->map.matrix[i][j] = '0';
-				data->map.matrix[i - 1][j] = 'P';
-				player_found = 1;
-			}
-			else if (data->map.matrix[i][j] == 'P' && data->map.matrix[i - 1][j] == 'E')
-				close_window(&(data->mlx), 0);
-			j++;
-		}
-		i++;
+		map->grid[map->y_player][map->x_player] = '0';
+		map->grid[map->y_player + 1][map->x_player] = 'P';
+		map->y_player++;
 	}
-	fill_window_with_tiles(&(data->map), &(data->mlx), &(data->img));
-}
-
-void		move_down(t_data *data)
-{
-	int		i;
-	int		j;
-	int		player_found;
-
-	i = 0;
-	player_found = 0;
-	while (i < data->map.h && !player_found)
-	{
-		j = 0;
-		while (j < data->map.w && !player_found)
-		{
-			if (data->map.matrix[i][j] == 'P' && data->map.matrix[i + 1][j] != '1' && data->map.matrix[i + 1][j] != 'E')
-			{
-				data->map.matrix[i][j] = '0';
-				data->map.matrix[i + 1][j] = 'P';
-				player_found = 1;
-			}
-			else if (data->map.matrix[i][j] == 'P' && data->map.matrix[i + 1][j] == 'E')
-				close_window(&(data->mlx), 0);
-			j++;
-		}
-		i++;
-	}
-	fill_window_with_tiles(&(data->map), &(data->mlx), &(data->img));
+	return (target_tile);
 }

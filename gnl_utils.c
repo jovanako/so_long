@@ -6,11 +6,11 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:13:58 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/11 20:13:59 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/12 18:48:34 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "so_long.h"
+#include "get_next_line.h"
 
 int	find_new_line(char *s)
 {

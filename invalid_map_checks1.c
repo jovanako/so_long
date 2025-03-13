@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors2.c                                          :+:      :+:    :+:   */
+/*   invalid_map_checks1.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 20:10:11 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/11 20:12:31 by jkovacev         ###   ########.fr       */
+/*   Created: 2025/03/12 20:42:23 by jkovacev          #+#    #+#             */
+/*   Updated: 2025/03/13 12:11:43 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,17 +27,17 @@ int    check_walls(t_map map)
     error = "Error\nThe map is not enclosed by walls.";
     i = 0;
     j = 0;
-    while (j < map.w)
+    while (j < map.columns)
     {
-        if ((map.matrix[i][j] != '1') || (map.matrix[i + (map.h - 1)][j] != '1'))
+        if ((map.grid[i][j] != '1') || (map.grid[i + (map.rows - 1)][j] != '1'))
             return (print_error_and_return(error, 0));
         j++;
     }
     i++;
     j = 0;
-    while (i < (map.h - 1))
+    while (i < (map.rows - 1))
     {
-        if ((map.matrix[i][j] != '1') || (map.matrix[i][j + (map.w - 1)] != '1'))
+        if ((map.grid[i][j] != '1') || (map.grid[i][j + (map.columns - 1)] != '1'))
             return (print_error_and_return(error, 0));
         i++;
     }
@@ -52,12 +52,12 @@ int     is_rectangular(t_map map)
 	char	*error;
 
 	error = "Error\nThe map is not rectangular.";
-    len = ft_strlen(map.matrix[0]) - 1;
+    len = ft_strlen(map.grid[0]) - 1;
     i = 1;
-    while (i < map.h)
+    while (i < map.rows)
     {
-        current_len = ft_strlen(map.matrix[i]);
-        if (map.matrix[i][current_len - 1] == '\n')
+        current_len = ft_strlen(map.grid[i]);
+        if (map.grid[i][current_len - 1] == '\n')
             current_len--;
         if (current_len != len)
             return (print_error_and_return(error, 0));
@@ -66,7 +66,7 @@ int     is_rectangular(t_map map)
     return (1);
 }
 
-int		is_in(char c)
+static int		is_in(char c)
 {
 	char	*set;
 
@@ -88,12 +88,12 @@ int		valid_characters(t_map map)
 
 	error = "Error\nThe map contains invalid characters.";
 	i = 0;
-	while (i < map.h)
+	while (i < map.rows)
 	{
 		j = 0;
-		while (j < map.w)
+		while (j < map.columns)
 		{
-			if (!(is_in(map.matrix[i][j])))
+			if (!(is_in(map.grid[i][j])))
 				return (print_error_and_return(error, 0));
 			j++;
 		}

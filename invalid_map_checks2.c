@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   errors1.c                                          :+:      :+:    :+:   */
+/*   invalid_map_checks2.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/03/11 20:13:01 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/11 20:13:02 by jkovacev         ###   ########.fr       */
+/*   Created: 2025/03/12 20:42:41 by jkovacev          #+#    #+#             */
+/*   Updated: 2025/03/13 11:47:39 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,9 @@ static int     check_duplicates(t_map map, char c)
 
     count = 0;
     i = 0;
-    while (i < map.h)
+    while (i < map.rows)
     {
-        count += count_c(map.matrix[i], c, map.w);
+        count += count_c(map.grid[i], c, map.columns);
         i++;
     }
     return (count);
@@ -69,26 +69,4 @@ int     dup_or_no_exit(t_map map)
     else if (check_duplicates(map, 'E') == 0)
         return (print_error_and_return(error2, 1));
     return (0);
-}
-
-int     collectible(t_map map)
-{
-    int     i;
-    int     j;
-    char    *error;
-    
-    error = "Error\nThe map has no collectibles.";
-    i = 0;
-    while (i < map.h)
-    {
-        j = 0;
-        while (j < map.w)
-        {
-            if (map.matrix[i][j] == 'C')
-                return (1);
-            j++;
-        }
-        i++;
-    }
-    return (print_error_and_return(error, 0));
 }

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:14:45 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 19:29:51 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:53:42 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,16 @@ typedef struct  s_data
 	int		n_moves;
 }               t_data;
 
+typedef struct	s_checker
+{
+	int		num_collectibles;
+	int		exit_found;
+}				t_checker;
+
+
 char	*get_next_line(int fd);
 int		ft_strlen(char *str);
+void	copy(char *dst, char *src, int n);
 char	*ft_itoa(int n);
 int		load_map(char *map_name, t_map *map);
 int		print_error_and_return(char *error_message, int n);
@@ -78,6 +86,7 @@ int		is_rectangular(t_map map);
 int		valid_characters(t_map map);
 int		dup_or_no_player(t_map map);
 int		dup_or_no_exit(t_map map);
+int		is_valid_path(t_map *map);
 void	load_tiles(t_data *data);
 void	*get_image(char c, t_tiles *tiles);
 void	fill_window_with_tiles(t_mlx *mlx, t_map *map, t_tiles *tiles);

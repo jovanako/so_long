@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 20:09:31 by jkovacev          #+#    #+#              #
-#    Updated: 2025/03/13 11:21:53 by jkovacev         ###   ########.fr        #
+#    Updated: 2025/03/13 19:36:06 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,6 +22,7 @@ SRCS = so_long.c \
 		map.c \
 		invalid_map_checks1.c \
 		invalid_map_checks2.c \
+		valid_path_check.c \
 		window_management.c \
 		movement_handlers.c \
 		ft_itoa.c \

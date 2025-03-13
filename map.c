@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:15:28 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 12:10:01 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/13 21:53:57 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,8 @@ int	load_map(char *map_name, t_map *map)
 	if (!check_walls(*map) || !is_rectangular(*map) || !valid_characters(*map)
 		|| dup_or_no_player(*map) || dup_or_no_exit(*map))
 		return (1);
+	if (!is_valid_path(map))
+		return (print_error_and_return("Error\nNo valid path.", 1));
 	if (map->n_collectibles == 0)
 		return (print_error_and_return("Error\nThe map has no collectibles.", 1));
 	return (0);

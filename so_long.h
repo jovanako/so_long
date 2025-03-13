@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:14:45 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 13:31:14 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:29:51 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ typedef struct  s_map
 	int		x_player;
 	int		y_player;
 	int		n_collectibles;
+	int		frozen;
 }               t_map;
 
 typedef struct  s_img
@@ -78,15 +79,18 @@ int		valid_characters(t_map map);
 int		dup_or_no_player(t_map map);
 int		dup_or_no_exit(t_map map);
 void	load_tiles(t_data *data);
+void	*get_image(char c, t_tiles *tiles);
 void	fill_window_with_tiles(t_mlx *mlx, t_map *map, t_tiles *tiles);
 char	move_right(t_map *map);
 char	move_left(t_map *map);
 char	move_up(t_map *map);
 char	move_down(t_map *map);
 void	handle_move(char field, t_data *data);
+void	exit_handler(t_mlx *mlx, t_map *map, t_tiles *tiles);
 void	free_map(t_map *map);
 void	end_program(t_data *data);
 int		end_program_and_return(t_data *data);
 int		key_press(int keycode, t_data *data);
+void	display_exit_message();
 
 #endif

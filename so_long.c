@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 18:38:20 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 13:32:04 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:47:59 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int     main(int argc, char *argv[])
 
 	if (argc != 2 || (load_map(argv[1], &map) == 1))
 		return (1);
+	map.frozen = 0;
 	data.map = &map;
 	mlx.con = mlx_init();
     if (!mlx.con)

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 22:06:46 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 13:31:43 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:29:45 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,5 +62,12 @@ void	fill_window_with_tiles(t_mlx *mlx, t_map *map, t_tiles *tiles)
 		}
 		i++;
 	}
+}
+
+void	display_exit_message()
+{
+	
+	write (1, "You win! Press ESC to exit.", 27);
+	write (1, "\n", 1);
 }
 

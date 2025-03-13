@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:39:35 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 13:35:08 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/13 19:29:47 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,11 @@ void	handle_move(char field, t_data *data)
 	if (field == 'C')
 		data->map->n_collectibles--;
 	if (field == 'E' && data->map->n_collectibles == 0)
-		end_program_and_return(data);
+	{
+		data->map->frozen = 1;
+		exit_handler(data->mlx, data->map, &(data->tiles));
+		display_exit_message();
+	}
 }
 
 int		key_press(int keycode, t_data *data)
@@ -61,13 +65,16 @@ int		key_press(int keycode, t_data *data)
 		end_program(data);
 		exit(0);
 	}
-	else if (keycode == 65363 || keycode == 100)
-		handle_move(move_right(data->map), data);
-	else if (keycode == 65361 || keycode == 97)
-		handle_move(move_left(data->map), data);
-	else if (keycode == 65362 || keycode == 119)
-		handle_move(move_up(data->map), data);
-	else if (keycode == 65364 || keycode == 115)
-		handle_move(move_down(data->map), data);
+	else if (!(data->map->frozen))
+	{
+		if (keycode == 65363 || keycode == 100)
+			handle_move(move_right(data->map), data);
+		else if (keycode == 65361 || keycode == 97)
+			handle_move(move_left(data->map), data);
+		else if (keycode == 65362 || keycode == 119)
+			handle_move(move_up(data->map), data);
+		else if (keycode == 65364 || keycode == 115)
+			handle_move(move_down(data->map), data);		
+	}
 	return (0);
 }

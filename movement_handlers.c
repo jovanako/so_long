@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:11:54 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 13:46:24 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/13 18:44:59 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,3 +67,23 @@ char	move_down(t_map *map)
 	}
 	return (target_tile);
 }
+
+void	exit_handler(t_mlx *mlx, t_map *map, t_tiles *tiles)
+{
+	int		i;
+	int		j;
+	
+	i = 0;
+	while (i < map->rows)
+	{
+		j = 0;
+		while (j < map->columns)
+		{
+			map->grid[i][j] = 'C';
+			mlx_put_image_to_window(mlx->con, mlx->win, get_image('C', tiles), j *TILE_WIDTH, i * TILE_HEIGHT);
+			j++;
+		}
+		i++;
+	}
+}
+

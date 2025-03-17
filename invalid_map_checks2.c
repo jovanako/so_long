@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 20:42:41 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 11:47:39 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:08:46 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,4 +69,19 @@ int     dup_or_no_exit(t_map map)
     else if (check_duplicates(map, 'E') == 0)
         return (print_error_and_return(error2, 1));
     return (0);
+}
+
+int		valid_mapname_extension(char *s)
+{
+	int		i;
+
+	i = 0;
+	while (s[i])
+	{
+		if (s[i] == '.' && i > 0 && s[i + 1] == 'b' && 
+			s[i + 2] == 'e' && s[i + 3] == 'r')
+			return (1);
+		i++;
+	}
+	return (0);
 }

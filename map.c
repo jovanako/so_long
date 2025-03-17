@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:15:28 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 21:53:57 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:23:54 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,24 +16,27 @@ static int	map_size(char *map_name, t_map *map)
 {
     int     fd;
     char    *line;
-    int     height;
-
+	
+	if (!valid_mapname_extension(map_name))
+		return (print_error_and_return("Error\nIncorrect map file extension.", 1));
     fd = open(map_name, O_RDONLY);
     line = get_next_line(fd);
+	if (!line || fd == -1)
+		return (print_error_and_return("Error\nEmpty map file / Bad file descriptor.", 1));
     map->columns = ft_strlen(line) - 1;
-    height = 1;
+	free(line);
+    map->rows = 1;
     while (line)
     {
         line = get_next_line(fd);
         if (line)
-            height++;
+            map->rows++;
+		free(line);
     }
-    map->rows = height;
     map->grid = malloc(map->rows * sizeof(char *));
 	if (!map->grid)
 		return (1);
     close(fd);
-    free(line);
 	return (0);
 }
 static void	parse_line(t_map *map, char *line, int row_number)
@@ -59,7 +62,8 @@ static void	load_grid(char *map_name, t_map *map)
     int     fd;
     int     i;
     char    *line;
-
+	
+	map->n_collectibles = 0;
     fd = open(map_name, O_RDONLY);
     line = get_next_line(fd);
     i = 0;
@@ -78,7 +82,7 @@ int	load_map(char *map_name, t_map *map)
 	if (map_size(map_name, map) == 1)
 		return (1);
 	load_grid(map_name, map);
-	if (!check_walls(*map) || !is_rectangular(*map) || !valid_characters(*map)
+	if (!is_rectangular(*map) || !check_walls(*map) || !valid_characters(*map)
 		|| dup_or_no_player(*map) || dup_or_no_exit(*map))
 		return (1);
 	if (!is_valid_path(map))

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:39:35 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/14 08:06:05 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:46:45 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,11 +19,12 @@ void	end_program(t_data *data)
 	if (data->mlx->win)
 	{
 		mlx_destroy_window(data->mlx->con, data->mlx->win);
-		mlx_destroy_image(data->mlx->con, data->tiles.grass);
-		mlx_destroy_image(data->mlx->con, data->tiles.tree);
-		mlx_destroy_image(data->mlx->con, data->tiles.mushrooms);
-		mlx_destroy_image(data->mlx->con, data->tiles.exit);
-		mlx_destroy_image(data->mlx->con, data->tiles.wizard);
+		mlx_destroy_image(data->mlx->con, data->tiles->grass);
+		mlx_destroy_image(data->mlx->con, data->tiles->tree);
+		mlx_destroy_image(data->mlx->con, data->tiles->mushrooms);
+		mlx_destroy_image(data->mlx->con, data->tiles->exit);
+		mlx_destroy_image(data->mlx->con, data->tiles->wizard);
+		free(data->tiles);
 		free(data->mlx->con);
 	}
 }
@@ -38,11 +39,11 @@ static void	display_move_count(int n)
 {
 	char	*moves_str;
 
-	moves_str = ft_itoa(n);
-	
+	moves_str = ft_itoa(n);	
 	write (1, "Number of moves: ", 17);
 	write (1, moves_str, ft_strlen(moves_str));
 	write (1, "\n", 1);
+	free(moves_str);
 }
 
 void	handle_move(char field, t_data *data)
@@ -51,14 +52,14 @@ void	handle_move(char field, t_data *data)
 	{
 		data->n_moves++;
 		display_move_count(data->n_moves);
-		fill_window_with_tiles(data->mlx, data->map, &(data->tiles));
+		fill_window_with_tiles(data->mlx, data->map, data->tiles);
 	}
 	if (field == 'C')
 		data->map->n_collectibles--;
 	if (field == 'E' && data->map->n_collectibles == 0)
 	{
 		data->map->frozen = 1;
-		exit_handler(data->mlx, data->map, &(data->tiles));
+		exit_handler(data->mlx, data->map, data->tiles);
 		display_exit_message();
 	}
 }

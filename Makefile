@@ -6,11 +6,11 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 20:09:31 by jkovacev          #+#    #+#              #
-#    Updated: 2025/03/13 19:36:06 by jkovacev         ###   ########.fr        #
+#    Updated: 2025/03/17 09:19:28 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = solong
+NAME = so_long
 
 CC = cc
 

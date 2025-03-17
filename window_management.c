@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 22:06:46 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 19:29:45 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:50:15 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,16 @@ void	load_tiles(t_data *data)
 
 	w = TILE_WIDTH;
 	h = TILE_HEIGHT;
-	data->tiles.grass = 
+	data->tiles = malloc(sizeof(t_tiles));
+	data->tiles->grass = 
 		mlx_xpm_file_to_image(data->mlx->con, "sprites/grass.xpm", &w, &h);
-    data->tiles.tree =
+    data->tiles->tree =
 		mlx_xpm_file_to_image(data->mlx->con, "sprites/tree.xpm", &w, &h);
-    data->tiles.mushrooms =
+    data->tiles->mushrooms =
 		mlx_xpm_file_to_image(data->mlx->con, "sprites/mushrooms.xpm", &w, &h);
-    data->tiles.exit =
+    data->tiles->exit =
 		mlx_xpm_file_to_image(data->mlx->con, "sprites/exit.xpm", &w, &h);
-    data->tiles.wizard =
+    data->tiles->wizard =
 		mlx_xpm_file_to_image(data->mlx->con, "sprites/wizard.xpm", &w, &h);
 }
 

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 18:38:20 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 21:06:13 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:58:40 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,16 @@ int     main(int argc, char *argv[])
 	data.map = &map;
 	mlx.con = mlx_init();
     if (!mlx.con)
-		end_program_and_return(&data);
+		return (end_program_and_return(&data));
 	mlx.title = "Collect the mushrooms, Miraculix!";
 	data.mlx = &mlx;
 	mlx.win = mlx_new_window(mlx.con, TILE_WIDTH * map.columns, 
 		TILE_HEIGHT * map.rows, mlx.title);
 	if (!mlx.win)
-		end_program_and_return(&data);
+		return (end_program_and_return(&data));
 	load_tiles(&data);
-	fill_window_with_tiles(&mlx, &map, &(data.tiles));
+	fill_window_with_tiles(&mlx, &map, data.tiles);
+	data.n_moves = 0;
 	mlx_key_hook(mlx.win, key_press, &data);
 	mlx_hook(mlx.win, 17, 1L<<17, end_program_and_return, &mlx);
 	mlx_loop(mlx.con);

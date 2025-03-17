@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:14:45 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 21:53:42 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/17 17:37:07 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ typedef struct  s_data
 {
     t_mlx   *mlx;
     t_map   *map;
-	t_tiles tiles;
+	t_tiles *tiles;
 	int		n_moves;
 }               t_data;
 
@@ -79,6 +79,7 @@ char	*get_next_line(int fd);
 int		ft_strlen(char *str);
 void	copy(char *dst, char *src, int n);
 char	*ft_itoa(int n);
+int		valid_mapname_extension(char *s);
 int		load_map(char *map_name, t_map *map);
 int		print_error_and_return(char *error_message, int n);
 int		check_walls(t_map map);

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:35:26 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/13 22:24:48 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/17 10:54:47 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ int		is_valid_path(t_map *map)
 	int		i;
 
 	checker.num_collectibles = map->n_collectibles;
+	checker.exit_found = 0;
 	grid_copy = malloc(map->rows * sizeof(char *));
 	if (!grid_copy)
 		return (1);

@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 20:09:31 by jkovacev          #+#    #+#              #
-#    Updated: 2025/03/17 09:19:28 by jkovacev         ###   ########.fr        #
+#    Updated: 2025/03/17 19:51:31 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = so_long
 
 CC = cc
 
-CFLAGS = -g -Wall -Wextra -Werror -I/usr/local/include -O0
+CFLAGS = -g -Wall -Wextra -Werror -I/usr/local/include
 
 SRCS = so_long.c \
 		gnl_utils.c \
@@ -35,7 +35,7 @@ DEPS = so_long.h
 all: $(NAME)
 
 $(NAME) : $(OBJS)
-		$(CC) $(OBJS) -lmlx -L/usr/local/lib -lXext -lX11 -lm -o $(NAME)
+		$(CC) $(OBJS) -lmlx -L/usr/local/lib -lXext -lX11 -o $(NAME)
 
 %.o: %.c $(DEPS)
 		$(CC) $(CFLAGS) -c -o $@ $<

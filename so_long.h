@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:14:45 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/17 17:37:07 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/17 18:59:45 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,6 @@ typedef struct  s_mlx
 {
     void    *con;
     void    *win;
-    int     pix_w;
-    int     pix_h;
     char    *title;
 }               t_mlx;
 

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:39:35 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/17 17:46:45 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/17 19:41:58 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ void	end_program(t_data *data)
 		mlx_destroy_image(data->mlx->con, data->tiles->mushrooms);
 		mlx_destroy_image(data->mlx->con, data->tiles->exit);
 		mlx_destroy_image(data->mlx->con, data->tiles->wizard);
+		mlx_destroy_display(data->mlx->con);
 		free(data->tiles);
 		free(data->mlx->con);
 	}

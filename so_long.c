@@ -6,11 +6,23 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 18:38:20 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/17 19:36:29 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/18 22:02:30 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
+
+int		free_map_and_return(t_map *map)
+{
+	free_map_with_grid(map);
+	return (1);
+}
+
+int close_window(t_data *data)
+{
+	mlx_loop_end(data->mlx->con);
+    return (0);
+}
 
 int     main(int argc, char *argv[])
 {
@@ -18,7 +30,7 @@ int     main(int argc, char *argv[])
 	t_map	map;
     t_data  data;
 
-	if (argc != 2 || (load_map(argv[1], &map) == 1))
+	if ((load_map(argc, argv[1], &map) == 1))
 		return (1);
 	map.frozen = 0;
 	data.map = &map;
@@ -35,8 +47,9 @@ int     main(int argc, char *argv[])
 	fill_window_with_tiles(&mlx, &map, data.tiles);
 	data.n_moves = 0;
 	mlx_key_hook(mlx.win, key_press, &data);
-	mlx_hook(mlx.win, 17, 1L<<17, end_program_and_return, &mlx);
+	mlx_hook(mlx.win, 17, 0, close_window, &data);
 	mlx_loop(mlx.con);
+	cleanup(&data);
 	return (0);	
 }
 

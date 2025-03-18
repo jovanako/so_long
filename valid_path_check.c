@@ -6,24 +6,25 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:35:26 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/17 10:54:47 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:12:32 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
-
-// copy grid
 
 void	check_field(t_checker *checker, char **grid, int i, int j)
 {
 	char	current_field;
 
 	current_field = grid[i][j];
+	grid[i][j] = 'x';
 	if (current_field == 'C')
 		checker->num_collectibles--;
 	else if (current_field == 'E')
+	{
 		checker->exit_found = 1;
-	grid[i][j] = 'x';
+		return ;
+	}
 	if (grid[i - 1][j] != '1' && grid[i - 1][j] != 'x')
 		check_field(checker, grid, i - 1, j);
 	if (grid[i][j - 1] != '1' && grid[i][j - 1] != 'x')

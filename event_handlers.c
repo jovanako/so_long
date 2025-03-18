@@ -6,16 +6,16 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:39:35 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/17 19:41:58 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/18 22:02:09 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "so_long.h"
 
-void	end_program(t_data *data)
+void	cleanup(t_data *data)
 {
 	if (data->map->grid[0][0])
-		free_map(data->map);
+		free_map_with_grid(data->map);
 	if (data->mlx->win)
 	{
 		mlx_destroy_window(data->mlx->con, data->mlx->win);
@@ -32,7 +32,7 @@ void	end_program(t_data *data)
 
 int		end_program_and_return(t_data *data)
 {
-	end_program(data);
+	cleanup(data);
 	return (1);
 }
 
@@ -68,10 +68,7 @@ void	handle_move(char field, t_data *data)
 int		key_press(int keycode, t_data *data)
 {
 	if (keycode == 65307)
-	{
-		end_program(data);
-		exit(0);
-	}
+		mlx_loop_end(data->mlx->con);
 	else if (!(data->map->frozen))
 	{
 		if (keycode == 65363 || keycode == 100)

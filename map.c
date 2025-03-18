@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 19:15:28 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/17 18:40:48 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/18 21:25:55 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,21 +21,18 @@ static int	map_size(char *map_name, t_map *map)
 		return (print_error_and_return("Error\nIncorrect map file extension.", 1));
     fd = open(map_name, O_RDONLY);
     line = get_next_line(fd);
-	if (!line || fd == -1)
-		return (print_error_and_return("Error\nEmpty map file / Bad file descriptor.", 1));
+	if (!line)
+		return (1);
+	if (ft_strlen(line) == 0)
+		return (print_error_and_return("Error\nEmpty map file.", 1));
     map->columns = ft_strlen(line) - 1;
-	free(line);
-    map->rows = 1;
+    map->rows = 0;
     while (line)
     {
-        line = get_next_line(fd);
-        if (line)
-            map->rows++;
 		free(line);
+		map->rows++;
+        line = get_next_line(fd);
     }
-    map->grid = malloc(map->rows * sizeof(char *));
-	if (!map->grid)
-		return (1);
     close(fd);
 	return (0);
 }
@@ -57,12 +54,15 @@ static void	parse_line(t_map *map, char *line, int row_number)
 	}
 }
 
-static void	load_grid(char *map_name, t_map *map)
+static int	load_grid(char *map_name, t_map *map)
 {
     int     fd;
     int     i;
     char    *line;
 	
+	map->grid = malloc(map->rows * sizeof(char *));
+	if (!map->grid)
+		return (0);
 	map->n_collectibles = 0;
     fd = open(map_name, O_RDONLY);
     line = get_next_line(fd);
@@ -75,24 +75,36 @@ static void	load_grid(char *map_name, t_map *map)
         i++;
     }
     close(fd);
+	return (1);
 }
 
-int	load_map(char *map_name, t_map *map)
+int	load_map(int n, char *map_name, t_map *map)
 {
+	if (n != 2)
+		return (1);
 	if (map_size(map_name, map) == 1)
 		return (1);
-	load_grid(map_name, map);
-	if (!is_rectangular(*map) || !check_walls(*map) || !valid_characters(*map)
-		|| dup_or_no_player(*map) || dup_or_no_exit(*map))
+	if (!load_grid(map_name, map))
 		return (1);
+	if (!is_rectangular(map) || !check_walls(map) || !valid_characters(map)
+		|| dup_or_no_player(map) || dup_or_no_exit(map))
+		return (free_map_and_return(map));
 	if (!is_valid_path(map))
-		return (print_error_and_return("Error\nNo valid path.", 1));
+	{
+		free_map_with_grid(map);
+		perror("Error\nNo valid path.");
+		return (1);
+	}
 	if (map->n_collectibles == 0)
-		return (print_error_and_return("Error\nThe map has no collectibles.", 1));
+	{
+		free_map_with_grid(map);
+		perror("Error\nThe map has no collectibles.");
+		return (1);
+	}
 	return (0);
 }
 
-void	free_map(t_map *map)
+void	free_map_with_grid(t_map *map)
 {
 	int		i;
 

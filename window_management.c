@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 22:06:46 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/17 17:50:15 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/18 19:41:54 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,15 +21,15 @@ void	load_tiles(t_data *data)
 	h = TILE_HEIGHT;
 	data->tiles = malloc(sizeof(t_tiles));
 	data->tiles->grass = 
-		mlx_xpm_file_to_image(data->mlx->con, "sprites/grass.xpm", &w, &h);
+		mlx_xpm_file_to_image(data->mlx->con, "textures/grass.xpm", &w, &h);
     data->tiles->tree =
-		mlx_xpm_file_to_image(data->mlx->con, "sprites/tree.xpm", &w, &h);
+		mlx_xpm_file_to_image(data->mlx->con, "textures/tree.xpm", &w, &h);
     data->tiles->mushrooms =
-		mlx_xpm_file_to_image(data->mlx->con, "sprites/mushrooms.xpm", &w, &h);
+		mlx_xpm_file_to_image(data->mlx->con, "textures/mushrooms.xpm", &w, &h);
     data->tiles->exit =
-		mlx_xpm_file_to_image(data->mlx->con, "sprites/exit.xpm", &w, &h);
+		mlx_xpm_file_to_image(data->mlx->con, "textures/exit.xpm", &w, &h);
     data->tiles->wizard =
-		mlx_xpm_file_to_image(data->mlx->con, "sprites/wizard.xpm", &w, &h);
+		mlx_xpm_file_to_image(data->mlx->con, "textures/wizard.xpm", &w, &h);
 }
 
 void	*get_image(char c, t_tiles *tiles)

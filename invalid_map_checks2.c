@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 20:42:41 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/17 10:08:46 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/18 17:39:23 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,22 +28,22 @@ static int		count_c(char *s, char c, int len)
 	return (count);
 }
 
-static int     check_duplicates(t_map map, char c)
+static int     check_duplicates(t_map *map, char c)
 {
     int     i;
     int     count;
 
     count = 0;
     i = 0;
-    while (i < map.rows)
+    while (i < map->rows)
     {
-        count += count_c(map.grid[i], c, map.columns);
+        count += count_c(map->grid[i], c, map->columns);
         i++;
     }
     return (count);
 }
 
-int     dup_or_no_player(t_map map)
+int     dup_or_no_player(t_map *map)
 {
     char    *error1;
     char    *error2;
@@ -57,7 +57,7 @@ int     dup_or_no_player(t_map map)
     return (0);
 }
 
-int     dup_or_no_exit(t_map map)
+int     dup_or_no_exit(t_map *map)
 {
     char    *error1;
     char    *error2;
@@ -79,7 +79,7 @@ int		valid_mapname_extension(char *s)
 	while (s[i])
 	{
 		if (s[i] == '.' && i > 0 && s[i + 1] == 'b' && 
-			s[i + 2] == 'e' && s[i + 3] == 'r')
+			s[i + 2] == 'e' && s[i + 3] == 'r' && s[i + 4] == '\0')
 			return (1);
 		i++;
 	}

@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/11 20:14:45 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/17 18:59:45 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/18 22:02:02 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,13 +78,13 @@ int		ft_strlen(char *str);
 void	copy(char *dst, char *src, int n);
 char	*ft_itoa(int n);
 int		valid_mapname_extension(char *s);
-int		load_map(char *map_name, t_map *map);
+int		load_map(int n, char *map_name, t_map *map);
 int		print_error_and_return(char *error_message, int n);
-int		check_walls(t_map map);
-int		is_rectangular(t_map map);
-int		valid_characters(t_map map);
-int		dup_or_no_player(t_map map);
-int		dup_or_no_exit(t_map map);
+int		check_walls(t_map *map);
+int		is_rectangular(t_map *map);
+int		valid_characters(t_map *map);
+int		dup_or_no_player(t_map *map);
+int		dup_or_no_exit(t_map *map);
 int		is_valid_path(t_map *map);
 void	load_tiles(t_data *data);
 void	*get_image(char c, t_tiles *tiles);
@@ -95,8 +95,9 @@ char	move_up(t_map *map);
 char	move_down(t_map *map);
 void	handle_move(char field, t_data *data);
 void	exit_handler(t_mlx *mlx, t_map *map, t_tiles *tiles);
-void	free_map(t_map *map);
-void	end_program(t_data *data);
+void	free_map_with_grid(t_map *map);
+int		free_map_and_return(t_map *map);
+void	cleanup(t_data *data);
 int		end_program_and_return(t_data *data);
 int		key_press(int keycode, t_data *data);
 void	display_exit_message();

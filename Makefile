@@ -6,7 +6,7 @@
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/03/11 20:09:31 by jkovacev          #+#    #+#              #
-#    Updated: 2025/03/18 19:41:17 by jkovacev         ###   ########.fr        #
+#    Updated: 2025/03/19 11:17:56 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = so_long
 
 CC = cc
 
-CFLAGS = -g -Wall -Wextra -Werror -I/usr/local/include
+CFLAGS = -Wall -Wextra -Werror -I/usr/local/include
 
 SRCS = so_long.c \
 		gnl_utils.c \

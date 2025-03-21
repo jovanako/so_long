@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/13 19:35:26 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/18 21:12:32 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/19 12:58:48 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ void	check_field(t_checker *checker, char **grid, int i, int j)
 
 void	free_grid(char **grid, int n_rows)
 {
-	int 	i;
-	
+	int	i;
+
 	i = 0;
 	while (i < n_rows)
 		free(grid[i++]);
 	free(grid);
 }
 
-int		is_valid_path(t_map *map)
+int	is_valid_path(t_map *map)
 {
 	char		**grid_copy;
 	t_checker	checker;
-	int		i;
+	int			i;
 
 	checker.num_collectibles = map->n_collectibles;
 	checker.exit_found = 0;

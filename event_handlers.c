@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 21:39:35 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/18 22:02:09 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:41:50 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	cleanup(t_data *data)
 	}
 }
 
-int		end_program_and_return(t_data *data)
+int	end_program_and_return(t_data *data)
 {
 	cleanup(data);
 	return (1);
@@ -40,7 +40,7 @@ static void	display_move_count(int n)
 {
 	char	*moves_str;
 
-	moves_str = ft_itoa(n);	
+	moves_str = ft_itoa(n);
 	write (1, "Number of moves: ", 17);
 	write (1, moves_str, ft_strlen(moves_str));
 	write (1, "\n", 1);
@@ -65,7 +65,7 @@ void	handle_move(char field, t_data *data)
 	}
 }
 
-int		key_press(int keycode, t_data *data)
+int	key_press(int keycode, t_data *data)
 {
 	if (keycode == 65307)
 		mlx_loop_end(data->mlx->con);
@@ -78,7 +78,7 @@ int		key_press(int keycode, t_data *data)
 		else if (keycode == 65362 || keycode == 119)
 			handle_move(move_up(data->map), data);
 		else if (keycode == 65364 || keycode == 115)
-			handle_move(move_down(data->map), data);		
+			handle_move(move_down(data->map), data);
 	}
 	return (0);
 }

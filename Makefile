@@ -5,8 +5,8 @@
 #                                                     +:+ +:+         +:+      #
 #    By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2025/03/11 20:09:31 by jkovacev          #+#    #+#              #
-#    Updated: 2025/03/19 11:17:56 by jkovacev         ###   ########.fr        #
+#    Created: 2025/03/20 12:44:57 by jkovacev          #+#    #+#              #
+#    Updated: 2025/03/21 17:06:49 by jkovacev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,6 +31,8 @@ SRCS = so_long.c \
 OBJS = $(SRCS:.c=.o)
 
 DEPS = so_long.h
+
+MLX_DIR = ../mlx_linux
 
 all: $(NAME)
 

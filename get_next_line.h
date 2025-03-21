@@ -6,7 +6,7 @@
 /*   By: jkovacev <jkovacev@student.42berlin.de>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/03/12 18:46:07 by jkovacev          #+#    #+#             */
-/*   Updated: 2025/03/12 20:44:40 by jkovacev         ###   ########.fr       */
+/*   Updated: 2025/03/20 12:40:53 by jkovacev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # endif
 
 int		ft_strlen(char *str);
-int	    find_new_line(char *s);
+int		find_new_line(char *s);
 void	append(char **line_buf, char *read_buf, int bytes_read);
 char	*ft_substr(char **s, int start, int len);
 void	copy(char *dst, char *src, int n);
